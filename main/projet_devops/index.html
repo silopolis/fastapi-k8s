@@ -1,0 +1,1258 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Project Documentation for FastAPI-Traefik-K8s Team during DevUniversity DevOps Bootcamp 202309">
+      
+      
+        <meta name="author" content="Jacint Balint, Gaudry Joseph-Angélique, Wenceslas Le Texier, Jérémie Tarot">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
+    
+    
+      
+        <title>DevOps : Déploiement et cycle de vie d’une application - DevOps-Boot: FastAPI-Traefik-K8s</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,300i,400,400i,700,700i%7CB612+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Comfortaa";--md-code-font:"B612 Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#devops-deploiement-et-cycle-de-vie-dune-application" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DevOps-Boot: FastAPI-Traefik-K8s" class="md-header__button md-logo" aria-label="DevOps-Boot: FastAPI-Traefik-K8s" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevOps-Boot: FastAPI-Traefik-K8s
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DevOps : Déploiement et cycle de vie d’une application
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/fr/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/devops-boot/fastapi-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../project/" class="md-tabs__link">
+        
+  
+    
+  
+  Project
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../documentation/" class="md-tabs__link">
+        
+  
+    
+  
+  Documentation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../directives/" class="md-tabs__link">
+        
+  
+    
+  
+  Directives
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DevOps-Boot: FastAPI-Traefik-K8s" class="md-nav__button md-logo" aria-label="DevOps-Boot: FastAPI-Traefik-K8s" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DevOps-Boot: FastAPI-Traefik-K8s
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/devops-boot/fastapi-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../directives/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description-detaillee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description détaillée
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-fastapi-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application : FastAPI Traefik
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-et-attendus-du-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planning et attendus du projet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Planning et attendus du projet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cahier-des-charges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cahier des charges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cahier des charges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectifs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-masterclass-modeles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules / Masterclass / Modèles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#livrable-et-conditions-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Livrable et conditions de validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infrastructure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Infrastructure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectifs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-masterclass-modeles_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules / Masterclass / Modèles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#livrable-et-conditions-de-validation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Livrable et conditions de validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des données
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestion des données">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectifs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-masterclass-modeles_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules / Masterclass / Modèles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#livrable-et-conditions-de-validation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Livrable et conditions de validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pipeline CI/CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectifs_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-masterclass-modeles_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules / Masterclass / Modèles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#livrable-et-conditions-de-validation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Livrable et conditions de validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supervision
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supervision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectifs_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-masterclass-modeles_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules / Masterclass / Modèles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#livrable-et-conditions-de-validation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Livrable et conditions de validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatisation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automatisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectifs_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-masterclass-modeles_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules / Masterclass / Modèles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#livrable-et-conditions-de-validation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Livrable et conditions de validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#competences-requises-pour-le-titre-rncp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compétences requises pour le titre R.N.C.P.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition-de-validation-du-titre-rncp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition de validation du titre R.N.C.P.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Condition de validation du titre R.N.C.P.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dossier-de-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dossier de projet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-de-presentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support de présentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diplome-certifie-datascientest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diplôme certifié DataScientest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diplôme certifié DataScientest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generalites-validation-datascientest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Généralités validation DataScientest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#criteres-deligibilite-au-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critères d’éligibilité au projet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#criteres-devaluation-des-travaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critères d'évaluation des travaux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditions-de-validation-bootcamp-poei-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions de validation (Bootcamp &amp; POEI &amp; Continue)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="devops-deploiement-et-cycle-de-vie-dune-application">DevOps : Déploiement et cycle de vie d’une application</h1>
+<h2 id="description-detaillee">Description détaillée</h2>
+<p>L’objectif de ce projet est de faire la démonstration pratique de la plupart des éléments techniques appris durant le cursus DevOps.</p>
+<p>L’activité de DevOps dans une <em>équipe</em> est une activité de <em>support au développement</em> et d’<em>automatisation</em> des divers éléments pratiques nécessaires au bon fonctionnement d’une application.</p>
+<p>Ce projet consiste à rassembler les aspects pratiques découverts dans les modules du cursus et de les combiner autour d’une <em>infrastructure</em> pour réaliser le <em>déploiement d’une application</em>, conformément aux <em>exigences de validation</em> de votre formation.</p>
+<p>Les projets sont réalisés en groupe de <strong>3 ou 4 personnes maximum</strong>.</p>
+<h2 id="application-fastapi-traefik">Application : FastAPI Traefik</h2>
+<p>Dépôt GitHub de l&rsquo;application disponible <a href="https://github.com/DataScientest/fastapi-docker-traefik">ici</a></p>
+<p>Un exemple d’API générique en Python proposé par DataScientest.<br />
+Ce projet pourra convenir pour ceux qui souhaitent créer une application ou modifier celle-ci.</p>
+<p>Pour les objectifs du projet, on vous demandera de déployer l’application avec un <em>déploiement en mode “micro-service”</em> sur un tout <em>nouvel environnement</em> de façon <em>sécurisée</em>.<br />
+Il faudra également y inclure un <em>point d’entrée (proxy) via </em><em>Traefik</em>**.</p>
+<blockquote>
+<p><a href="https://doc.traefik.io/traefik/">Documentation Traefik</a></p>
+</blockquote>
+<p>Il y a plusieurs possibilités :</p>
+<ul>
+<li>Déployer cette application sur Kubernetes</li>
+<li>Déployer cette application sur le Cloud</li>
+<li>Déployer cette application sur un environnement local</li>
+</ul>
+<p>L’application est simple, mais toute nouvelle fonctionnalité sera grandement appréciée et valorisée pour la validation du projet.</p>
+<p>Ce projet convient également aux profils non à l’aise avec les langages de programmation.</p>
+<h2 id="planning-et-attendus-du-projet">Planning et attendus du projet</h2>
+<h3 id="cahier-des-charges">Cahier des charges</h3>
+<h4 id="description">Description</h4>
+<p>Construire le cahier des charges et prise en main de l’application</p>
+<h4 id="objectifs">Objectifs</h4>
+<p>Comprendre les objectifs du projet et les exigences fonctionnelles :</p>
+<ul>
+<li>Définition des besoins métiers et de l’application utilisée.</li>
+<li>Importation de l’application sur votre VCS</li>
+<li>Schéma d’implémentation</li>
+<li>Instancier un dépôt Git : l’organiser et le documenter</li>
+<li>Organiser la gestion du projet : Choix des méthodes</li>
+</ul>
+<h4 id="modules-masterclass-modeles">Modules / Masterclass / Modèles</h4>
+<ul>
+<li>Documentation externe</li>
+<li>Dépôt GitHub</li>
+<li>Trello / Projet GitHub</li>
+</ul>
+<h4 id="livrable-et-conditions-de-validation">Livrable et conditions de validation</h4>
+<ul>
+<li>Cahier des charges au format PDF</li>
+</ul>
+<h3 id="infrastructure">Infrastructure</h3>
+<h4 id="description_1">Description</h4>
+<p>Configurer, déployer et sécuriser l&rsquo;infrastructure pour l’application</p>
+<h4 id="objectifs_1">Objectifs</h4>
+<p>Créer une architecture “micro-services” du projet avec une solution IaC :</p>
+<ul>
+<li>Conteneurisation et orchestration</li>
+<li>Choix des composants d&rsquo;infrastructure de votre application (Front, Back, BDD&hellip;)</li>
+<li>Gérer le réseau et les ports de connexion</li>
+<li>La sécurité avec des protocoles chiffrés</li>
+<li>Architecture sur plusieurs serveurs ou instances : haute disponibilité</li>
+<li>Gestion des sauvegardes, Disaster Recovery</li>
+</ul>
+<h4 id="modules-masterclass-modeles_1">Modules / Masterclass / Modèles</h4>
+<p>Infrastructure :</p>
+<ul>
+<li>Docker</li>
+<li>Kubernetes</li>
+<li>Administration Linux et NGINX</li>
+<li>AWS (ECS, Kubernetes, EC2, auto-scaling, ELB, Route 53, ElasticBeanstalk)</li>
+</ul>
+<h4 id="livrable-et-conditions-de-validation_1">Livrable et conditions de validation</h4>
+<p>Dépôt GitHub avec :</p>
+<ul>
+<li>Script système de sauvegarde</li>
+<li>Script application</li>
+</ul>
+<h3 id="gestion-des-donnees">Gestion des données</h3>
+<h4 id="description_2">Description</h4>
+<p>Ingestion et consommation des données</p>
+<h4 id="objectifs_2">Objectifs</h4>
+<p>Définir la nature, la vélocité et le volume de données pour l’application :</p>
+<ul>
+<li>Choisir la solution technique de stockage de données selon l’application</li>
+<li>Créer la base de données si besoin pour stocker les données de l’application</li>
+<li>Programmer la sauvegarde des données de l’application</li>
+<li>Mettre en place les droits d’accès</li>
+<li>Ingestion des données dans l’application</li>
+<li>Consommation par les utilisateurs</li>
+<li>Gestion des logs</li>
+</ul>
+<h4 id="modules-masterclass-modeles_2">Modules / Masterclass / Modèles</h4>
+<ul>
+<li>SQL</li>
+<li>MongoDB</li>
+<li>AWS (RDS, Dynamo DB, S3, EFS)</li>
+</ul>
+<h4 id="livrable-et-conditions-de-validation_2">Livrable et conditions de validation</h4>
+<ul>
+<li>Base de données fonctionnelle</li>
+<li>Stockage des logs</li>
+<li>Authentification / Autorisation</li>
+</ul>
+<h3 id="pipeline-cicd">Pipeline CI/CD</h3>
+<h4 id="description_3">Description</h4>
+<p>Configurer les pipelines pour automatiser les processus de compilation, de test, de déploiement et de livraison.</p>
+<h4 id="objectifs_3">Objectifs</h4>
+<ul>
+<li>Éviter les erreurs humaines par l&rsquo;automatisation.</li>
+<li>S&rsquo;assurer que les déploiements se déroulent de manière efficace et fiable.</li>
+<li>Effectuer des tests automatisés et des tests d&rsquo;intégration pour s&rsquo;assurer que le code fonctionne correctement</li>
+<li>Déployer le code sur un environnement de production ou de test en utilisant des outils automatisé</li>
+<li>Intégrer le code source dans un environnement de développement centralisé</li>
+<li>Limiter les interruptions de déploiement/livraison continue (blue/green)</li>
+<li>Collecter les KPI afin de mesurer l&rsquo;efficacité et le succès des pratiques DevOps. (Deployment Cycle Time, Deployment Frequency, Deployment Success Rate)</li>
+</ul>
+<h4 id="modules-masterclass-modeles_3">Modules / Masterclass / Modèles</h4>
+<p>Déploiement et automatisation :</p>
+<ul>
+<li>Jenkins</li>
+<li>Ansible</li>
+<li>Github Actions</li>
+<li>Circle CI/CD</li>
+<li>AWS (CodeBuild, CodePipeline, CodeCommit, CodeStar)</li>
+</ul>
+<p>Tests :</p>
+<ul>
+<li>Unittest</li>
+<li>Pytest</li>
+<li>Selenium</li>
+<li>JUnit</li>
+</ul>
+<h4 id="livrable-et-conditions-de-validation_3">Livrable et conditions de validation</h4>
+<p>Scripts dans le dépôt GitHub</p>
+<h3 id="supervision">Supervision</h3>
+<h4 id="description_4">Description</h4>
+<p>Définir des métriques et surveiller le système en production pour détecter les erreurs et les problèmes potentiels.</p>
+<h4 id="objectifs_4">Objectifs</h4>
+<ul>
+<li>En utilisant un système de supervision, qui comprend un serveur, des agents de collecte et une console de supervision, déployer les agents afin de collecter les indicateurs (métriques) définis.</li>
+<li>Configurer des tableaux de bord de surveillance pour suivre des métriques clés et configurer des alertes pour notifier les problèmes potentiels.</li>
+<li>Définir les valeurs seuils et créer des alarmes pertinentes selon les métriques mesurées</li>
+<li>Définir et créer des actions automatiques en réponse à ces alarmes</li>
+<li>Lorsque la console fait apparaître un défaut sur un indicateur, déterminer l’origine du problème</li>
+<li>Régulièrement, rapporter aux développeurs les statistiques de performance de leurs applications en production</li>
+</ul>
+<h4 id="modules-masterclass-modeles_4">Modules / Masterclass / Modèles</h4>
+<ul>
+<li>Prometheus</li>
+<li>Grafana</li>
+<li>Datadog</li>
+<li>AWS (CloudWatch, EventBrige)</li>
+</ul>
+<h4 id="livrable-et-conditions-de-validation_4">Livrable et conditions de validation</h4>
+<ul>
+<li>Fonctionnement de la solution de monitoring</li>
+<li>Accès aux outils</li>
+<li>Tableau de bord</li>
+</ul>
+<h3 id="automatisation">Automatisation</h3>
+<h4 id="description_5">Description</h4>
+<p>Automatiser le déploiement, de l&rsquo;infrastructure des environnements et de l’application.</p>
+<h4 id="objectifs_5">Objectifs</h4>
+<ul>
+<li>Automatiser le déploiement de la configuration du serveur (IaC)</li>
+<li>Créer des modèles déclaratifs (YAML) pour déployer l’infrastructure, les environnements et l’application</li>
+<li>Utiliser les variables d’environnement pour sécuriser les données sensibles et éviter la redondance de modèles.</li>
+<li>Ces modèles seront réutilisables, répétables peu importe l’environnement déployé</li>
+</ul>
+<h4 id="modules-masterclass-modeles_5">Modules / Masterclass / Modèles</h4>
+<ul>
+<li>Automatisation (IaC)</li>
+<li>Terraform</li>
+<li>AWS (CloudFormation)</li>
+</ul>
+<h4 id="livrable-et-conditions-de-validation_5">Livrable et conditions de validation</h4>
+<ul>
+<li>Dépôt GitHub avec modèles IaC fonctionnels</li>
+</ul>
+<!-- markdownlint-disable MD026 -->
+<h2 id="competences-requises-pour-le-titre-rncp">Compétences requises pour le titre R.N.C.P.</h2>
+<!-- markdownlint-enable MD026 -->
+
+<p>Pour le diplôme RNCP, le projet couvre obligatoirement les compétences suivantes :</p>
+<ul>
+<li><strong>Automatiser le déploiement d&rsquo;une infrastructure</strong></li>
+<li><strong>Architecture micro-services : gérer des conteneurs</strong></li>
+<li><strong>Exploiter une solution de supervision</strong></li>
+</ul>
+<!-- markdownlint-disable MD026 -->
+<h2 id="condition-de-validation-du-titre-rncp">Condition de validation du titre R.N.C.P.</h2>
+<!-- markdownlint-enable MD026 -->
+
+<p>Le projet donne lieu à deux productions :</p>
+<ul>
+<li>Un <strong>dossier de projet</strong> à remettre au jury</li>
+<li>Un <strong>support de présentation</strong> de type diaporama</li>
+</ul>
+<h3 id="dossier-de-projet">Dossier de projet</h3>
+<p>Le dossier de projet est <strong>individuel</strong> et <strong>respecte le plan type</strong> suivant :</p>
+<ul>
+<li><strong>Cahier des charges</strong> ;</li>
+<li><strong>Spécifications techniques</strong> du projet</li>
+<li>Élaborées par le candidat,</li>
+<li>Comprenant de préférence un <strong>schéma</strong> de l’<em>infrastructure</em> à déployer et/ou de l’<em>application</em> à mettre en production ;</li>
+<li>Description de la <strong>démarche</strong> et des <strong>outils</strong> utilisés ainsi que des <strong>collaborations</strong> éventuelles avec les autres équipes ;</li>
+<li><strong>Réalisations</strong> du candidat comportant les <em>configurations</em> et <em>scripts</em> les plus significatifs accompagnés d&rsquo;un argumentaire ;</li>
+<li><strong>Description d’une situation de travail</strong> ayant nécessité une <em>recherche</em> effectuée par le candidat durant le projet.</li>
+</ul>
+<h3 id="support-de-presentation">Support de présentation</h3>
+<p>Le candidat présente <strong>individuellement</strong> son projet à l’aide d’un support de présentation de type diaporama réalisé en amont de l’épreuve, et selon ce canevas :</p>
+<ul>
+<li>Présentation de l’entreprise et/ou du service ;</li>
+<li>Contexte du projet (cahier des charges, contraintes, livrables attendus) ;</li>
+<li>Présentation de l’infrastructure à déployer et/ou de l’application à mettre en production ;</li>
+<li>Présentation d’un exemple significatif du travail réalisé par le candidat ;</li>
+<li>Présentation d’un exemple de recherche effectuée ;</li>
+<li>Synthèse et conclusion (satisfactions et difficultés rencontrées).</li>
+</ul>
+<p>Informations complémentaires concernant l’entretien technique :</p>
+<ul>
+<li>L&rsquo;entretien technique se déroule obligatoirement à l&rsquo;issue de la présentation du projet réalisé en amont de la session.</li>
+</ul>
+<h2 id="diplome-certifie-datascientest">Diplôme certifié DataScientest</h2>
+<h3 id="generalites-validation-datascientest">Généralités validation DataScientest</h3>
+<ul>
+<li>Les exigences et le contenu du projet seront <strong>identiques.</strong></li>
+<li>Vous travaillerez <strong>en groupe</strong>.<br />
+  Ne s’applique pas aux apprenants en alternance ou projets individuels.</li>
+<li>Tous les groupes de projets seront encadrés par <strong>un mentor</strong>.</li>
+<li>Une réunion par sprint pour faire le point sur les avancements.</li>
+<li>Un salon dédié sur Slack pour votre projet avec votre mentor sera à votre disposition.</li>
+<li>L&rsquo;évaluation finale repose sur deux éléments :</li>
+<li>la <strong>soutenance</strong> et</li>
+<li>votre <strong>livrable</strong> du projet (GitHub, GitLab&hellip;)</li>
+</ul>
+<h3 id="criteres-deligibilite-au-projet">Critères d’éligibilité au projet</h3>
+<ul>
+<li><strong>Valider les modules</strong> du premier sprint :</li>
+<li>Python 101 DevOps</li>
+<li>Virtualisation et Vagrant</li>
+<li>Introduction à Linux et Bash</li>
+<li>Valider le module <strong>Administration des systèmes Linux</strong></li>
+</ul>
+<h3 id="criteres-devaluation-des-travaux">Critères d&rsquo;évaluation des travaux</h3>
+<ul>
+<li>Qualité des <strong>rendus intermédiaires</strong> :<br />
+  Pas d’obligation de résultats, mais une obligation d’effort.</li>
+<li>Gestion de votre temps et de votre effort.</li>
+<li>Preuve de travail en équipe.<br />
+  Ne s’applique pas aux apprenants en alternance ou projets individuels.</li>
+<li>Communication et suivi avec votre mentor.</li>
+<li>Prise de recul sur le sujet.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Le mentor n’est pas un membre de l’équipe.</p>
+</div>
+<p>!!!</p>
+<h3 id="conditions-de-validation-bootcamp-poei-continue">Conditions de validation (Bootcamp &amp; POEI &amp; Continue)</h3>
+<ul>
+<li><strong>Remise du dépôt GitHub en bonne et due forme</strong> :</li>
+<li>Production organisée et fonctionnelle.</li>
+<li>
+<p>Documentation, “README” avec procédure d’installation du projet.</p>
+</li>
+<li>
+<p><strong>Soutenance finale en groupe de 35 minutes</strong></p>
+</li>
+<li>10 Minutes de présentation</li>
+<li>10 minutes de démonstration</li>
+<li>15 minutes questions / réponses</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jacint Balint, Gaudry Joseph-Angélique, Wenceslas Le Texier, Jérémie Tarot
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/devops-boot/fastapi-k8s/" target="_blank" rel="noopener" title="Project repository on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://dst-sept23.slack.com/app_redirect?channel=C061W1C8W3T" target="_blank" rel="noopener" title="Project Slack channel (private)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "toc.follow", "search.suggest"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
+      
+    
+  </body>
+</html>

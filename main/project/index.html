@@ -1,0 +1,1221 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Project Documentation for FastAPI-Traefik-K8s Team during DevUniversity DevOps Bootcamp 202309">
+      
+      
+        <meta name="author" content="Jacint Balint, Gaudry Joseph-Angélique, Wenceslas Le Texier, Jérémie Tarot">
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../documentation/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
+    
+    
+      
+        <title>Project - DevOps-Boot: FastAPI-Traefik-K8s</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300,300i,400,400i,700,700i%7CB612+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Comfortaa";--md-code-font:"B612 Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#projet-fastapi-treafik" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DevOps-Boot: FastAPI-Traefik-K8s" class="md-header__button md-logo" aria-label="DevOps-Boot: FastAPI-Traefik-K8s" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevOps-Boot: FastAPI-Traefik-K8s
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/fr/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/devops-boot/fastapi-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Project
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../documentation/" class="md-tabs__link">
+        
+  
+    
+  
+  Documentation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../directives/" class="md-tabs__link">
+        
+  
+    
+  
+  Directives
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DevOps-Boot: FastAPI-Traefik-K8s" class="md-nav__button md-logo" aria-label="DevOps-Boot: FastAPI-Traefik-K8s" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DevOps-Boot: FastAPI-Traefik-K8s
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/devops-boot/fastapi-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectifs-principaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs principaux
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-documents-fournis-en-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les documents fournis en Support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rncp" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RNCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-exigences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les exigences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-dossier-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Le dossier Projet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Le dossier Projet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-dossier-de-projet-respecte-ce-plan-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Le dossier de projet respecte ce plan type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-support-de-presentation-de-type-diaporama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Le support de présentation de type diaporama
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formation-datascientest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formation DataScientest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Formation DataScientest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-exigences_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les exigences
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Les exigences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployer-et-et-gerer-le-cycle-de-vie-dune-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Déployer et et Gérer le cycle de vie d’une application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modalites-validation-datascientest-pour-le-diplome-ingenieur-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modalités validation DataScientest pour le diplôme Ingénieur DevOps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projet-impose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projet Imposé
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deroulement-du-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Déroulement du projet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choix-initiaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choix initiaux
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../directives/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectifs-principaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectifs principaux
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-documents-fournis-en-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les documents fournis en Support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rncp" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RNCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-exigences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les exigences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-dossier-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Le dossier Projet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Le dossier Projet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-dossier-de-projet-respecte-ce-plan-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Le dossier de projet respecte ce plan type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-support-de-presentation-de-type-diaporama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Le support de présentation de type diaporama
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formation-datascientest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formation DataScientest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Formation DataScientest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-exigences_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les exigences
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Les exigences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployer-et-et-gerer-le-cycle-de-vie-dune-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Déployer et et Gérer le cycle de vie d’une application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modalites-validation-datascientest-pour-le-diplome-ingenieur-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modalités validation DataScientest pour le diplôme Ingénieur DevOps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projet-impose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projet Imposé
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deroulement-du-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Déroulement du projet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choix-initiaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choix initiaux
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="projet-fastapi-treafik">Projet FastAPi Treafik</h1>
+<h2 id="objectifs-principaux">Objectifs principaux</h2>
+<ul>
+<li>Acquérir les connaissances techniques et méthodologiques ainsi que les savoir-faire nécessaires à l&rsquo;exercice de la fonction d&rsquo;administrateur/ingénieur/architecte DevOps/Cloud/SRE.</li>
+<li>Valider la certification RNCP &ldquo;Administrateur Système DevOps” RNCP36061.</li>
+<li>Valider la formation DataScientest intitulé « Ingénieur DevOps » dans son format Bootcamp.</li>
+</ul>
+<h2 id="les-documents-fournis-en-support">Les documents fournis en Support</h2>
+<ul>
+<li>Voici un document pour vous aider à la rédaction du dossier projet et sa forme  \<br />
+Cahier des charges du dossier \<br />
+<a href="https://docs.google.com/presentation/d/1-XcjCfzGO1DF1sFut0lYUZrI_6VHlevm/edit#slide=id.p1">https://docs.google.com/presentation/d/1-XcjCfzGO1DF1sFut0lYUZrI_6VHlevm/edit#slide=id.p1</a></li>
+<li>Voici la fiche des projets proposés \<br />
+Avec le tableau présentant les étapes \<br />
+<a href="https://docs.google.com/document/d/1o3YM1vOo2_Ys_WGhifBuvKYz59662vLo/edit">https://docs.google.com/document/d/1o3YM1vOo2_Ys_WGhifBuvKYz59662vLo/edit</a></li>
+<li>Voici le document qui présente les conditions de validations de la certification RNCP \<br />
+<a href="https://docs.google.com/document/d/1R9l3U-EpyFmI5Dx9f0NkKSr065mEFA1c/edit">https://docs.google.com/document/d/1R9l3U-EpyFmI5Dx9f0NkKSr065mEFA1c/edit</a> </li>
+</ul>
+<h2 id="rncp">RNCP</h2>
+<h3 id="les-exigences">Les exigences</h3>
+<p>**La session d’évaluation visant l’obtention du titre professionnel réunit un jury de professionnels du domaine, est organisée en présentiel à Paris et s’appuie sur plusieurs éléments : **</p>
+<ul>
+<li>Le Dossier professionnel (DP) complété par le candidat au plus tard 15 jours avant la session d’examens</li>
+<li>La présentation du projet fil rouge réalisé en amont de la session</li>
+<li>Un dossier de projet à remettre au jury</li>
+<li>Un support de présentation type diaporama</li>
+<li>Entretien technique</li>
+<li>Questionnaire professionnel</li>
+<li>Entretien final</li>
+<li>Livret des évaluations passées en cours de formation (ECF)</li>
+</ul>
+<p>### Les compétences évaluées sont les suivantes :  \<br />
+<strong>Le projet couvre obligatoirement les compétences suivantes (en couleur)</strong></p>
+<ol>
+<li>Automatiser le déploiement d’une infrastructure dans le cloud<ol>
+<li>Automatiser la création de serveurs à l’aide de scripts </li>
+<li><strong>Automatiser le déploiement d’une infrastructure</strong></li>
+<li>Sécuriser l’infrastructure</li>
+<li>Mettre l’infrastructure en production dans le cloud</li>
+</ol>
+</li>
+<li>Déployer en continu une application<ol start="5">
+<li>Préparer un environnement de test</li>
+<li>Gérer le stockage des données </li>
+<li><strong>Gérer des containers</strong></li>
+<li>Automatiser la mise en production d’une application avec une plateforme</li>
+</ol>
+</li>
+<li>
+<p>Superviser les services déployés</p>
+<ol start="9">
+<li>Définir et mettre en place des statistiques de services</li>
+<li><strong>Exploiter une solution de supervision</strong></li>
+<li>Echanger sur des réseaux professionnels éventuellement en anglais</li>
+</ol>
+<p>Lorsqu’il est réalisé en centre de formation, le projet doit également comporter un cahier des charges conçu par le candidat et permettre la mise en œuvre des compétences d’au moins une des activités types.</p>
+</li>
+</ol>
+<ul>
+<li>Automatiser le déploiement d&rsquo;une infrastructure</li>
+<li>Gérer des containers</li>
+<li>
+<p>Exploiter une solution de supervision</p>
+<p><strong>Les compétences non couvertes par le projet présenté feront l’objet d’un questionnement lors de l’entretien technique.</strong></p>
+</li>
+</ul>
+<h3 id="le-dossier-projet">Le dossier Projet</h3>
+<p><strong><span style="text-decoration:underline;">Le projet donne lieu à deux productions</span> :</strong></p>
+<ul>
+<li>Un dossier de projet à remettre au jury ;</li>
+<li>Un support de présentation de type diaporama.</li>
+</ul>
+<h4 id="le-dossier-de-projet-respecte-ce-plan-type">Le dossier de projet respecte ce plan type</h4>
+<ul>
+<li>liste des compétences du référentiel qui sont couvertes par le projet ;</li>
+<li>cahier des charges ;</li>
+<li>spécifications techniques du projet, élaborées par le candidat, comprenant de préférence un schéma de l’infrastructure à déployer et/ou de</li>
+<li>l’application à mettre en production ;</li>
+<li>description de la démarche et des outils utilisés ainsi que des collaborations éventuelles avec les autres équipes ;</li>
+<li>réalisations du candidat comportant les scripts et les configurations les plus significatifs et en les argumentant ;</li>
+<li>description d’une situation de travail ayant nécessité une recherche effectuée par le candidat durant le projet.</li>
+</ul>
+<h4 id="le-support-de-presentation-de-type-diaporama">Le support de présentation de type diaporama</h4>
+<div class="codehilite"><pre><span></span><code><span class="o">**</span><span class="nx">Le</span><span class="w"> </span><span class="nx">candidat</span><span class="w"> </span><span class="nx">présente</span><span class="w"> </span><span class="nx">son</span><span class="w"> </span><span class="nx">projet</span><span class="w"> </span><span class="nx">à</span><span class="w"> </span><span class="nx">l</span><span class="err">’</span><span class="nx">aide</span><span class="w"> </span><span class="nx">d</span><span class="err">’</span><span class="nx">un</span><span class="w"> </span><span class="nx">support</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">présentation</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">diaporama</span><span class="w"> </span><span class="nx">réalisé</span><span class="w"> </span><span class="nx">en</span><span class="w"> </span><span class="nx">amont</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">l</span><span class="err">’</span><span class="nx">épreuve</span><span class="p">,</span><span class="w"> </span><span class="nx">et</span><span class="w"> </span><span class="nx">selon</span><span class="w"> </span><span class="nx">ce</span><span class="w"> </span><span class="nx">canevas</span><span class="w"> </span><span class="p">:</span><span class="o">**</span>
+</code></pre></div>
+
+<ul>
+<li>présentation de l’entreprise et/ou du service ;</li>
+<li>contexte du projet (cahier des charges, contraintes, livrables attendus) ;</li>
+<li>présentation de l’infrastructure à déployer et/ou de l’application à mettre en production ;</li>
+<li>présentation d’un exemple significatif du travail réalisé par le candidat ;</li>
+<li>présentation d’un exemple de recherche effectuée ;</li>
+<li>synthèse et conclusion (satisfactions et difficultés rencontrées).</li>
+<li>Informations complémentaires concernant l’entretien technique :</li>
+<li>L&rsquo;entretien technique se déroule obligatoirement à l&rsquo;issue de la présentation du projet réalisé en amont de la session.</li>
+</ul>
+<h2 id="formation-datascientest">Formation DataScientest</h2>
+<h3 id="les-exigences_1">Les exigences</h3>
+<h4 id="deployer-et-et-gerer-le-cycle-de-vie-dune-application">Déployer et et Gérer le cycle de vie d’une application</h4>
+<div class="codehilite"><pre><span></span><code>L’objectif de ce projet est de faire la démonstration pratique de la plupart des éléments techniques appris durant le cursus DevOps.
+
+
+L’activité de DevOps dans une équipe est une activité de support au développement et d’automatisation des divers éléments pratiques nécessaires au bon fonctionnement d’une application.
+
+
+Ce projet consiste à rassembler les aspects pratiques découverts dans les modules du cursus et de les combiner autour d’une infrastructure pour réaliser le déploiement d’une application, conformément aux exigences de validation de votre formation.
+
+
+Une attention particulière sera donnée à la forme des rendus intermédiaires. Notamment à l’organisation de votre projet Git, la communication et le travail d’équipe. \
+</code></pre></div>
+
+<p><strong>Si les rendus ne sont pas à la hauteur et délivrés à temps, votre projet ne pourra pas être validé</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">Vous</span><span class="w"> </span><span class="n">l</span><span class="err">’</span><span class="n">aurez</span><span class="w"> </span><span class="n">compris</span><span class="p">,</span><span class="w"> </span><span class="n">le</span><span class="w"> </span><span class="n">projet</span><span class="w"> </span><span class="n">demande</span><span class="w"> </span><span class="n">une</span><span class="w"> </span><span class="n">implication</span><span class="w"> </span><span class="n">conséquente</span><span class="w"> </span><span class="n">et</span><span class="w"> </span><span class="n">constitue</span><span class="w"> </span><span class="n">pour</span><span class="w"> </span><span class="n">cette</span><span class="w"> </span><span class="n">raison</span><span class="w"> </span><span class="n">un</span><span class="w"> </span><span class="n">pilier</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">votre</span><span class="w"> </span><span class="n">formation</span><span class="o">.</span><span class="w"> </span><span class="o">**</span><span class="n">Un</span><span class="w"> </span><span class="n">bon</span><span class="w"> </span><span class="n">projet</span><span class="w"> </span><span class="n">sera</span><span class="w"> </span><span class="n">le</span><span class="w"> </span><span class="n">meilleur</span><span class="w"> </span><span class="n">moyen</span><span class="w"> </span><span class="n">pour</span><span class="w"> </span><span class="n">vous</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">montrer</span><span class="w"> </span><span class="n">que</span><span class="w"> </span><span class="n">cette</span><span class="w"> </span><span class="n">formation</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="err">é</span><span class="n">té</span><span class="w"> </span><span class="n">concluante</span><span class="w"> </span><span class="n">et</span><span class="w"> </span><span class="n">que</span><span class="w"> </span><span class="n">vous</span><span class="w"> </span><span class="err">ê</span><span class="n">tes</span><span class="w"> </span><span class="n">opérationnels</span><span class="w"> </span><span class="o">!**</span>
+</code></pre></div>
+
+<h4 id="modalites-validation-datascientest-pour-le-diplome-ingenieur-devops"><strong>Modalités validation DataScientest pour le diplôme Ingénieur DevOps</strong></h4>
+<p><strong>Tout le long du projet : Organisation et développement centralisé</strong></p>
+<ul>
+<li>Projet fonctionnel</li>
+<li>Qualité du code et des outils</li>
+<li>Création d’un prototype produit final</li>
+<li>Gestion de multiples environnements</li>
+</ul>
+<p><strong>Soutenance finale technique en groupe</strong></p>
+<ul>
+<li>Automatiser le déploiement d&rsquo;une infrastructure</li>
+<li>Sécuriser l’infrastructure</li>
+<li>Mettre l’infrastructure en production dans le cloud</li>
+<li>Préparer des tests unitaires avant mise en production</li>
+<li>Gérer les bases de données et le stockage des données</li>
+<li>Gérer des containers et l’orchestration</li>
+<li>Automatiser la mise en production d’une application </li>
+<li>Définir et mettre en place une solution de supervision (SRE)</li>
+<li>Gérer des environnements et outils multiples</li>
+</ul>
+<p><strong>Démo + Soutenances =&gt;  Semaine du 12 Décembre</strong></p>
+<p>Pour votre démo, il faudra que votre application soit :</p>
+<div class="codehilite"><pre><span></span><code><span class="k">*</span> **Organisée et documentée** sur GitHub avec la procédure d’installation.
+<span class="k">*</span> Fonctionne **sans bugs**.
+</code></pre></div>
+
+<ul>
+<li>La soutenance<strong> DataScientest</strong> se déroule <strong>en groupe</strong> de la manière suivante :<ul>
+<li><strong>20 minutes de présentation</strong></li>
+<li><strong>10 minutes de questions de la part des membres du jury</strong></li>
+</ul>
+</li>
+<li>Vous avez la possibilité de réaliser soit :<ul>
+<li>une présentation <strong>Powerpoint + Démo</strong></li>
+<li>toute la présentation de votre application sur <strong>GitHub</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="projet-impose">Projet Imposé</h2>
+<div class="codehilite"><pre><span></span><code>FastAPI Traefik :  \
+</code></pre></div>
+
+<p><a href="https://github.com/DataScientest/fastapi-docker-traefik">https://github.com/DataScientest/fastapi-docker-traefik</a></p>
+<p>Vous êtes chargé de travailler activement sur la mise à jour de l&rsquo;application en appliquant toute la méthodologie DevOps.</p>
+<p>Un exemple d’API générique en Python proposé par DataScientest. Ce projet pourra convenir pour ceux qui souhaitent créer une application, ou modifier celle-ci.</p>
+<p>Pour les objectifs du projet, on vous demandera de déployer l’application avec un déploiement en mode “micro-service” sur un tout nouvel environnement de façon sécurisée. Il faudra également y inclure un point d’entrée (proxy) via Traefik.</p>
+<blockquote>
+<p><a href="https://doc.traefik.io/traefik/">Documentation Traefik</a><span style="text-decoration:underline;">  \<br />
+(https://doc.traefik.io/traefik/)</span></p>
+</blockquote>
+<p>Il y a plusieurs possibilités : </p>
+<ul>
+<li>Déployer cette application sur Kubernetes</li>
+<li>Déployer cette application sur le Cloud</li>
+<li>Déployer cette application sur un environnement local</li>
+</ul>
+<p>L’application est simple mais toute nouvelle feature sera grandement appréciée et valorisée pour la validation du projet.</p>
+<h2 id="deroulement-du-projet">Déroulement du projet</h2>
+<p>Le but de vous présenter les différentes attentes relatives au projet et ses deadlines. \<br />
+Les documents <a href="https://docs.google.com/document/d/1R9l3U-EpyFmI5Dx9f0NkKSr065mEFA1c/edit?usp=share_link&amp;ouid=101289792124210529508&amp;rtpof=true&amp;sd=true">Conditions de validation</a> et la <a href="https://docs.google.com/document/d/1o3YM1vOo2_Ys_WGhifBuvKYz59662vLo/edit?usp=share_link&amp;ouid=101289792124210529508&amp;rtpof=true&amp;sd=true">fiche projet</a> vous aiguilleront pour la livraison des différents livrables du projet.</p>
+<p><strong>1. Cahier des charges =&gt; 30 Octobre 2023</strong></p>
+<p><strong>Construire le cahier des charges et prise en main de l’application \<br />
+</strong>Comprendre les objectifs du projet et les exigences fonctionnelles.</p>
+<ul>
+<li>Définition des besoins métiers et de l’application utilisée.</li>
+<li>Importation de l’application sur votre VCS</li>
+<li>Schéma d’implémentation</li>
+<li>Instancier un dépôt Git : l’organiser et le documenter</li>
+<li>Organiser la gestion du projet : Choix des méthodes</li>
+</ul>
+<p><em>Votre première tâche consistera à définir le contexte et le périmètre du projet : j’attends que vous preniez vraiment le temps de bien comprendre les objectifs du projet et les exigences fonctionnelles. L&rsquo;application est fonctionnelle mais ne respecte pas les exigences des principes DevOps.</em></p>
+<ul>
+<li><em>L&rsquo;objectifs de n&rsquo;est pas construire l&rsquo;application mais de travailler sur l&rsquo;existant</em></li>
+<li><em>Il faudra créer et importer l&rsquo;application dans un repository Git dédié à l&rsquo;équipe projet.</em></li>
+</ul>
+<p><em>Rendu : J’attendrai également un schéma d&rsquo;implémentation de la solution orientée DevOps.</em></p>
+<p><strong>2 : Infrastructure =&gt; 10 Novembre 2023</strong></p>
+<p><strong>Configurer, déployer et sécuriser l&rsquo;infrastructure pour l’application</strong> \<br />
+Créer une architecture du projet “micro-services” avec une solution IaC :</p>
+<ul>
+<li>Conteneurisation et orchestration</li>
+<li>Choix des composants d&rsquo;infrastructure de votre application (Front, back, BDD..)</li>
+<li>Gérer et sécuriser le réseau et les ports de connexion</li>
+<li>La sécurité avec des protocoles chiffrés</li>
+<li>Architecture sur plusieurs serveurs ou instances : haute disponibilité</li>
+<li>Gestion des sauvegardes, recovery disaster</li>
+</ul>
+<p><em>Créer une architecture pour votre application en prenant en compte tous les composants de celle-ci. (Kubernetes, Vagrant..)</em></p>
+<p><em>Etapes Bonus:</em></p>
+<ul>
+<li><em>Privilégier une solution d&rsquo;<strong>I</strong>nfrastructure <strong>a</strong>s <strong>C</strong>ode</em></li>
+<li><em>Utiliser le cloud et ses services pour déployer votre application</em></li>
+</ul>
+<p><em>Rendu : Scripts utilisés et déploiement de l&rsquo;application sur votre architecture.</em></p>
+<p><strong>3. Gestion des données =&gt; 20 Novembre 2023</strong></p>
+<p><strong>Ingestion et consommation des données</strong></p>
+<p>Définir la nature, la vélocité et le volume de données pour l’application :</p>
+<ul>
+<li>Choisir la solution technique de stockage de données selon l’application</li>
+<li>Créer la base de données si besoin pour stocker les données de l’application</li>
+<li>Programmer la sauvegarde des données de l’application</li>
+<li>Mettre en place les droits d’accès</li>
+<li>Ingestion des données dans l’application</li>
+<li>Consommation par les utilisateurs</li>
+<li>
+<p>Gestion des logs</p>
+<p><em>Choisir la solution technique de stockage de données selon l’application et/ou une base de données :</em></p>
+<ul>
+<li><em>Relationnelle</em></li>
+<li><em>NoSQL</em></li>
+<li><em>File system / Bloc Storage / Object Storage</em></li>
+<li><em>Il faudra penser à l&rsquo;architecture des données, notamment comment relier les différentes données entre elles.</em></li>
+</ul>
+</li>
+</ul>
+<p><em>Rendu : Tout document expliquant l&rsquo;architecture choisie (Diagramme UML)</em></p>
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="nx">_Fichier</span><span class="w"> </span><span class="nx">implémentant</span><span class="w"> </span><span class="nx">les</span><span class="w"> </span><span class="nx">bases</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">données</span><span class="w"> </span><span class="nx">ou</span><span class="o">/</span><span class="nx">et</span><span class="w"> </span><span class="nx">le</span><span class="w"> </span><span class="nx">stockage_</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">_Fichier</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">requête_</span>
+</code></pre></div>
+
+<p>4: Pipeline CI/CD =&gt; 25 Novembre 2023</p>
+<p><strong>Configurer les pipelines pour automatiser les processus de compilation, de test, de déploiement et de livraison.</strong></p>
+<p>Cela permettra d&rsquo;éviter les erreurs humaines et de s&rsquo;assurer que les déploiements se déroulent de manière efficace et fiable.</p>
+<ul>
+<li>Effectuer des tests automatisés et des tests d&rsquo;intégration pour s&rsquo;assurer que le code fonctionne correctement</li>
+<li>Déployer le code sur un <span style="text-decoration:underline;">environnement de production</span> ou de test en utilisant des outils automatisés</li>
+<li>Intégrer le code source dans <span style="text-decoration:underline;">un environnement de développement</span> centralisé</li>
+<li>Limiter les interruptions de du déploiement/livraison continue (blue/green)</li>
+<li>Collecter les KPI afin de mesurer l&rsquo;efficacité et le succès des pratiques DevOps. (Deployment Cycle Time, Deployment Frequency, Deployment Success Rate)</li>
+</ul>
+<p><em>C&rsquo;est l&rsquo;étape la plus importante de votre projet car elle constitue le cœur de votre projet et apprentissage en ingénierie DevOps</em></p>
+<ul>
+<li><em>L&rsquo;idée est d&rsquo;automatiser le déploiement de l&rsquo;application via une pipeline CI/CD.</em></li>
+<li><em>Vous devrez créer deux environnements :</em></li>
+<li><em>un environnement dédié au développement</em></li>
+<li><em>un environnement dédié au production</em></li>
+<li><em>Cela peut être une VM dédiée, des conteneurs, ou tout autre serveur de calcul. Il faut simplement que l&rsquo;on puisse distinguer ces deux environnements.</em></li>
+<li><em>Effectuer des tests automatisés avant le déploiement du code en production pour s&rsquo;assurer que le code fonctionne correctement.</em></li>
+</ul>
+<p>5 : Supervision</p>
+<p><strong>Définir des métriques et surveiller le système en production pour détecter les erreurs et les problèmes potentiels</strong> </p>
+<p>En utilisant un système de supervision, qui comprend un serveur, des agents de collecte et une console de supervision, déployer les agents afin de collecter les indicateurs (métriques) définis.</p>
+<ul>
+<li>Configurer des tableaux de bord de surveillance pour suivre des métriques clés et configurer des alertes pour notifier les problèmes potentiels.</li>
+<li>Définir les valeurs seuils et créer des alarmes pertinentes selon les métriques mesurées</li>
+<li>Définir et créer des actions automatiques en réponse à ces alarmes</li>
+<li>Lorsque la console fait apparaître un défaut sur un indicateur, déterminer l’origine du problème</li>
+<li>Régulièrement, rapporter aux développeurs les statistiques de performance de leurs applications en production</li>
+</ul>
+<p><em>Etape bonus</em></p>
+<ul>
+<li><em>Définir des métriques, des &ldquo;points de santé&rdquo; pertinent pour l&rsquo;application</em></li>
+<li><em>Création d&rsquo;un dashboard pour donner du sens à la collecte de métrique.</em></li>
+<li><em>Définir des seuils à partir duquel on considère qu&rsquo;il y a un dysfonctionnement de l&rsquo;architecture ou/et de l&rsquo;application, cela doit déclencher une alarme.</em></li>
+<li><em>Définir des actions automatiques en réponse à ces alarmes.</em></li>
+</ul>
+<p>6 : Automatisation</p>
+<p><strong>Automatiser le déploiement, de l&rsquo;infrastructure des environnements et de l’application</strong></p>
+<p>Automatiser le déploiement la configuration du serveur (IaC)</p>
+<ul>
+<li>Créer des templates déclaratifs (YAML) pour déployer l’infrastructure, les environnements et l’application</li>
+<li>Utiliser les variables d’environnement pour sécuriser les données sensibles et éviter la redondance de template.</li>
+<li>Ces templates seront réutilisable, répétables peut importe l’environnement déployé</li>
+</ul>
+<h2 id="choix-initiaux">Choix initiaux</h2>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../documentation/" class="md-footer__link md-footer__link--next" aria-label="Next: Documentation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Documentation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jacint Balint, Gaudry Joseph-Angélique, Wenceslas Le Texier, Jérémie Tarot
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/devops-boot/fastapi-k8s/" target="_blank" rel="noopener" title="Project repository on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://dst-sept23.slack.com/app_redirect?channel=C061W1C8W3T" target="_blank" rel="noopener" title="Project Slack channel (private)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "toc.follow", "search.suggest"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
+      
+    
+  </body>
+</html>
